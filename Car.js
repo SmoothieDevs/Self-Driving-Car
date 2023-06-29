@@ -15,7 +15,7 @@ class Car {
 
         if (type != 'DUMMY') {
             this.sensor = new Sensor(this);
-            this.brain = new NeuralNetwork([this.sensor.rayCount, 6, 4]);
+            this.brain = new NeuralNetwork([this.sensor.rayCount, 10, 4]);
         }
 
         this.controls = new Controls(type);
@@ -119,7 +119,7 @@ class Car {
         this.y -= Math.cos(this.angle) * this.speed;
     }
 
-    draw(ctx,color) {
+    draw(ctx,color,drawSensors = false) {
         ctx.fillStyle = this.damaged ? 'grey' : color;
         ctx.beginPath();
         ctx.moveTo(this.polygon[0].x, this.polygon[0].y);
@@ -127,6 +127,6 @@ class Car {
             ctx.lineTo(this.polygon[i].x, this.polygon[i].y);
         }
         ctx.fill();
-        if (this.sensor) this.sensor.draw(ctx);
+        if (this.sensor && drawSensors) this.sensor.draw(ctx);
     }
 }
